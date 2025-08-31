@@ -38,6 +38,13 @@ const conversionMap: { [key: string]: string } = {
   'こんにちは': 'こんにちは', '今日': 'きょう', '天気': 'てんき', '楽しい': 'たのしい', '日本語': 'にほんご',
   'タイピング': 'たいぴんぐ', '練習': 'れんしゅう', '桜': 'さくら', '咲く': 'さく',
   '季節': 'きせつ', 'コーヒー': 'こーひー', '飲み': 'のみ', '仕事': 'しごと',
+  // 不足していた重要な漢字を追加
+  '音楽': 'おんがく', '音': 'おん', '楽': 'がく', '聴き': 'きき', '聴く': 'きく', '聴': 'き',
+  'ながら': 'ながら', 'リラックス': 'りらっくす', 'して': 'して', 'います': 'います',
+  '読書': 'どくしょ', '読': 'よ', '書': 'しょ', '知識': 'ちしき', '知': 'ち', '識': 'しき',
+  '広げる': 'ひろげる', '広': 'ひろ', '素晴らしい': 'すばらしい', '素': 'そ', '晴': 'はら',
+  '習慣': 'しゅうかん', '習': 'しゅう', '慣': 'かん', '新しい': 'あたらしい', '新': 'しん',
+  '学ぶ': 'まなぶ', '学': 'がく', '楽しい': 'たのしい', 'もの': 'もの', 'です': 'です',
   '春': 'はる', '花': 'はな', '美しく': 'うつくしく', '多く': 'おおく', '人々': 'ひとびと',
   '花見': 'はなみ', '楽しみ': 'たのしみ', '公園': 'こうえん', '川沿い': 'かわぞい', 
   '並木': 'なみき', 'ピンク': 'ぴんく', '白': 'しろ', '彩られ': 'いろどられ',
@@ -57,7 +64,12 @@ const conversionMap: { [key: string]: string } = {
   '音声認識': 'おんせいにんしき', 'システム': 'しすてむ', '以前': 'いぜん',
   '想像': 'そうぞう', '実用化': 'じつようか', '一方': 'いっぽう',
   'プライバシー': 'ぷらいばしー', '保護': 'ほご', 'サイバーセキュリティ': 'さいばーせきゅりてぃ',
-  '新た': 'あらた', '課題': 'かだい', '生まれて': 'うまれて'
+  '新た': 'あらた', '課題': 'かだい', '生まれて': 'うまれて',
+  // 数字と記号
+  '0': '0', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
+  '０': '0', '１': '1', '２': '2', '３': '3', '４': '4', '５': '5', '６': '6', '７': '7', '８': '8', '９': '9',
+  '：': ':', '；': ';', '・': '/', '〜': '~', '－': '-', '＋': '+', '＝': '=',
+  '【': '[', '】': ']', '『': '[', '』': ']', '〔': '[', '〕': ']'
 };
 
 // ひらがな→ローマ字変換マップ
@@ -95,7 +107,11 @@ const hiraganaToRomajiMap: { [key: string]: string } = {
   // 記号・句読点
   '。': '.', '、': ',', '？': '?', '！': '!',
   '（': '(', '）': ')', '「': '"', '」': '"',
-  ' ': ' ', '　': ' ' // 全角スペース
+  ' ': ' ', '　': ' ', // 全角スペース
+  // 数字と記号
+  '0': '0', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
+  ':': ':', ';': ';', '/': '/', '~': '~', '-': '-', '+': '+', '=': '=',
+  '[': '[', ']': ']'
 };
 
 // カテゴリー別テキストデータ（newsとcustomを除く）
@@ -234,6 +250,19 @@ const TypingPractice: React.FC<TypingPracticeProps> = ({ category, length, onCat
     volume: 0.3
   });
 
+  // ランク別の色を取得する関数
+  const getRankColor = useCallback((rank: UserRank): string => {
+    const rankColors = {
+      'S': '#FFD700', // ゴールド
+      'A': '#FF6B35', // オレンジ
+      'B': '#4ECDC4', // ティール
+      'C': '#45B7D1', // ブルー
+      'D': '#96CEB4', // グリーン
+      'E': '#95A5A6'  // グレー
+    };
+    return rankColors[rank] || '#95A5A6';
+  }, []);
+
   // タイマーの更新
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -246,6 +275,35 @@ const TypingPractice: React.FC<TypingPracticeProps> = ({ category, length, onCat
       if (interval) clearInterval(interval);
     };
   }, [startTime, isCompleted]);
+
+  // スコア・ランク計算関数
+  const calculateScore = useCallback((wpm: number, accuracy: number, retryCount: number, textLength: number): { score: number, rank: UserRank } => {
+    // 基本スコア = WPM × 正確率の二乗 × 文章長係数
+    const lengthBonus = Math.min(textLength / 100, 2); // 長文ボーナス（最大2倍）
+    const baseScore = wpm * Math.pow(accuracy / 100, 2) * lengthBonus;
+    
+    // リトライペナルティ（リトライ回数に応じて減点）
+    const retryPenalty = Math.max(0, 1 - (retryCount * 0.1));
+    
+    // 最終スコア
+    const finalScore = Math.round(baseScore * retryPenalty * 10);
+    
+    // ランク決定（スコアとWPMを総合評価）
+    let rank: UserRank = 'E';
+    if (wpm >= 80 && accuracy >= 98 && finalScore >= 1500) {
+      rank = 'S';
+    } else if (wpm >= 60 && accuracy >= 95 && finalScore >= 1000) {
+      rank = 'A';
+    } else if (wpm >= 40 && accuracy >= 90 && finalScore >= 600) {
+      rank = 'B';
+    } else if (wpm >= 25 && accuracy >= 80 && finalScore >= 300) {
+      rank = 'C';
+    } else if (wpm >= 15 && accuracy >= 70) {
+      rank = 'D';
+    }
+    
+    return { score: Math.max(0, finalScore), rank };
+  }, []);
 
   // 統計計算関数
   const calculateStats = useCallback((typed: string, expected: string, startTime: Date, retryCount: number = 0): TypingStats => {
@@ -267,16 +325,19 @@ const TypingPractice: React.FC<TypingPracticeProps> = ({ category, length, onCat
     const accuracy = totalChars > 0 ? (correctChars / totalChars) * 100 : 0;
     const wpm = timeElapsed > 0 ? (correctChars / 5) / timeElapsed : 0;
     
+    // スコアとランクを計算
+    const { score, rank } = calculateScore(Math.round(wpm), Math.round(accuracy * 100) / 100, retryCount, expected.length);
+    
     return {
       wpm: Math.round(wpm),
       accuracy: Math.round(accuracy * 100) / 100,
       totalChars,
       correctChars,
       incorrectChars,
-      score: 0,
-      rank: 'E' as UserRank,
+      score,
+      rank,
     };
-  }, []);
+  }, [calculateScore]);
 
   // キーボードイベント処理（ローマ字入力用）
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -971,7 +1032,7 @@ const TypingPractice: React.FC<TypingPracticeProps> = ({ category, length, onCat
           <div className="completion-rank">
             <div 
               className="completion-rank-badge" 
-              style={{ backgroundColor: '#4caf50' }}
+              style={{ backgroundColor: getRankColor(stats.rank) }}
             >
               {stats.rank}
             </div>
@@ -1016,7 +1077,7 @@ const TypingPractice: React.FC<TypingPracticeProps> = ({ category, length, onCat
               <div className="rank-display">
                 <div 
                   className="rank-badge" 
-                  style={{ backgroundColor: '#4caf50' }}
+                  style={{ backgroundColor: getRankColor(stats.rank) }}
                 >
                   {stats.rank}
                 </div>

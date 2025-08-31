@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import TypingPractice from './components/TypingPractice';
 import HowToUse from './components/HowToUse';
+import Ranking from './components/Ranking';
+import Achievements from './components/Achievements';
 import './App.css';
 
 type PracticeCategory = 'general' | 'news' | 'yamanashi' | 'literature' | 'it' | 'custom';
@@ -101,17 +103,21 @@ function App() {
         );
       case 'ranking':
         return (
-          <div className="page-container">
-            <h2>ランキング</h2>
-            <p>ランキングページは実装予定です。</p>
-          </div>
+          <Ranking 
+            currentUser={isLoggedIn ? "田中太郎" : undefined}
+          />
         );
       case 'achievements':
         return (
-          <div className="page-container">
-            <h2>実績</h2>
-            <p>実績ページは実装予定です。</p>
-          </div>
+          <Achievements 
+            userStats={{
+              totalPractices: 15,
+              maxWPM: mockUserStats.bestWPM,
+              averageAccuracy: mockUserStats.averageAccuracy,
+              consecutiveDays: mockUserStats.consecutiveDays,
+              totalTime: mockUserStats.totalPracticeTime * 60
+            }}
+          />
         );
       case 'about':
         return <HowToUse />;
