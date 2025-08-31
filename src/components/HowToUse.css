@@ -1,0 +1,384 @@
+.how-to-use {
+  background: linear-gradient(135deg, #f0f4f0 0%, #e8f5e9 50%, #dcedc8 100%);
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.how-to-use-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.how-to-use h1 {
+  text-align: center;
+  color: #2e7d32;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  font-family: 'Noto Sans JP', sans-serif;
+  background: linear-gradient(135deg, #1a5f3f 0%, #2e7d32 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* セクションの共通スタイル */
+.home-position-section,
+.practice-method-section {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-position-section::before,
+.practice-method-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4caf50, #66bb6a, #81c784);
+}
+
+.home-position-section h2,
+.practice-method-section h2 {
+  color: #2e7d32;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  font-family: 'Noto Sans JP', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-content {
+  color: #333;
+  line-height: 1.8;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.intro-text {
+  font-size: 18px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(76, 175, 80, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid #4caf50;
+}
+
+.intro-text strong {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+/* ポジションガイド */
+.position-guide h3 {
+  color: #2e7d32;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 30px 0 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.position-guide ul {
+  margin-bottom: 25px;
+}
+
+.position-guide li {
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.sub-text {
+  color: #666;
+  font-size: 14px;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* 指の配置 */
+.finger-placement {
+  background: rgba(76, 175, 80, 0.03);
+  border-radius: 16px;
+  padding: 25px;
+  margin: 25px 0;
+}
+
+.hand-positions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.left-hand h4,
+.right-hand h4 {
+  color: #2e7d32;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.left-hand ul,
+.right-hand ul {
+  list-style: none;
+  padding: 0;
+}
+
+.left-hand li,
+.right-hand li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.finger {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.key {
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  min-width: 30px;
+  text-align: center;
+}
+
+.key-highlight {
+  background: linear-gradient(135deg, #ff9800, #ffa726);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+}
+
+.thumb-position {
+  text-align: center;
+  background: rgba(255, 152, 0, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid rgba(255, 152, 0, 0.2);
+}
+
+.thumb-position p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ポイント */
+.position-tips {
+  background: rgba(33, 150, 243, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 25px;
+  border-left: 4px solid #2196f3;
+}
+
+.position-tips h3 {
+  color: #1976d2;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.position-tips ul {
+  margin: 0;
+}
+
+.position-tips li {
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* 練習方法 */
+.practice-step {
+  margin-bottom: 35px;
+  padding: 25px;
+  background: rgba(76, 175, 80, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.practice-step h3 {
+  color: #2e7d32;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.practice-step p {
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.practice-step strong {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.practice-step ul {
+  background: white;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin: 0;
+  border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.practice-step li {
+  color: #555;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.practice-step li::before {
+  content: '▶';
+  color: #4caf50;
+  font-size: 12px;
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+
+.practice-step li:last-child {
+  margin-bottom: 0;
+}
+
+/* モチベーションメッセージ */
+.motivation-message {
+  text-align: center;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  border-radius: 16px;
+  padding: 30px;
+  margin-top: 30px;
+  border: 2px solid rgba(76, 175, 80, 0.2);
+  box-shadow: 0 4px 20px rgba(76, 175, 80, 0.1);
+}
+
+.motivation-message p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2e7d32;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .how-to-use-container {
+    padding: 0 15px;
+  }
+  
+  .how-to-use h1 {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+  
+  .home-position-section,
+  .practice-method-section {
+    padding: 30px 20px;
+  }
+  
+  .home-position-section h2,
+  .practice-method-section h2 {
+    font-size: 24px;
+  }
+  
+  .hand-positions {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .intro-text {
+    font-size: 16px;
+    padding: 15px;
+  }
+  
+  .finger-placement {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .how-to-use {
+    padding: 20px 0;
+  }
+  
+  .how-to-use-container {
+    padding: 0 10px;
+  }
+  
+  .how-to-use h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+  
+  .home-position-section,
+  .practice-method-section {
+    padding: 20px 15px;
+    margin-bottom: 30px;
+  }
+  
+  .home-position-section h2,
+  .practice-method-section h2 {
+    font-size: 20px;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+  }
+  
+  .practice-step {
+    padding: 20px 15px;
+    margin-bottom: 25px;
+  }
+  
+  .practice-step h3 {
+    font-size: 18px;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+  }
+  
+  .left-hand li,
+  .right-hand li {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+  
+  .motivation-message {
+    padding: 20px 15px;
+  }
+  
+  .motivation-message p {
+    font-size: 16px;
+  }
+}
