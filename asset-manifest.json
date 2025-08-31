@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/japanese-typing-practice/static/css/main.7e760871.css",
-    "main.js": "/japanese-typing-practice/static/js/main.3127ae92.js",
+    "main.css": "/japanese-typing-practice/static/css/main.ae5396ff.css",
+    "main.js": "/japanese-typing-practice/static/js/main.87f730e0.js",
     "static/js/453.12e1a2f4.chunk.js": "/japanese-typing-practice/static/js/453.12e1a2f4.chunk.js",
     "index.html": "/japanese-typing-practice/index.html",
-    "main.7e760871.css.map": "/japanese-typing-practice/static/css/main.7e760871.css.map",
-    "main.3127ae92.js.map": "/japanese-typing-practice/static/js/main.3127ae92.js.map",
+    "main.ae5396ff.css.map": "/japanese-typing-practice/static/css/main.ae5396ff.css.map",
+    "main.87f730e0.js.map": "/japanese-typing-practice/static/js/main.87f730e0.js.map",
     "453.12e1a2f4.chunk.js.map": "/japanese-typing-practice/static/js/453.12e1a2f4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7e760871.css",
-    "static/js/main.3127ae92.js"
+    "static/css/main.ae5396ff.css",
+    "static/js/main.87f730e0.js"
   ]
 }
